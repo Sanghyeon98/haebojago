@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.psh.mapper.MainMapper">
+
+    <select id="getList" resultType="WordVO">
+        SELECT word_id, word, meaning, sentence, reg_time, update_time, member_seq
+        FROM words
+        where member_seq=#{memberSeq}
+        order by word_id desc
+    </select>
+    
+    <insert id="insert" parameterType="WordVO">
+        insert into words(word,word_type, meaning,meaning_type, member_seq) VALUES(#{word},#{wordType},#{meaning},#{meaningType},#{memberSeq})
+    </insert>
+
+    <update id="update">
+        UPDATE words
+        SET sentence =#{sentence}
+        WHERE word_id =#{wordId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM words WHERE word_id=#{wordId}
+    </delete>
+
+    <select id="selectCountAll" resultType="int">
+        select COUNT(*) from words where member_seq=#{memberSeq}
+    </select>
+
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.psh.mapper.LoginMapper">
+    <select id="idCheck" parameterType="MemberVO" resultType="int">
+        SELECT count(*) cnt FROM member WHERE id =#{id}
+    </select>
+
+    <!-- idPassCheck -->
+    <select id="idPassCheck" parameterType="MemberVO" resultType="int">
+        SELECT
+            COUNT(*) cnt
+        FROM
+            member
+        WHERE id = #{id}
+          AND   pwd = #{pwd}
+    </select>
+
+    <select id="doSelectOne" parameterType="MemberVO" resultType="MemberVO">
+        SELECT seq,id,pwd,name,email FROM member where id=#{id}
+    </select>
+</mapper>

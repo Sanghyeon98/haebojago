@@ -16,7 +16,7 @@ import java.io.IOException;
 
 @Configuration
 @RequiredArgsConstructor
-public class MybatisConfig {
+public class  MybatisConfig {
     private final ApplicationContext applicationContext;
 
     @ConfigurationProperties(prefix = "spring.datasource.hikari")
