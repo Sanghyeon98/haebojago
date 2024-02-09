@@ -36,6 +36,7 @@ public class HomeController {
         String jsonStr="";
         List<WordVO> list;
 
+        DataVO dataVO = new DataVO();
         // 세션에서 userId 가져오기
         MemberVO user = (MemberVO) session.getAttribute("user");
         System.out.println(user);
@@ -49,7 +50,9 @@ public class HomeController {
             list = wordService.findAll(userseq);
         }
 
-        jsonStr = new Gson().toJson(list);
+        dataVO.setDataList(list);
+
+        jsonStr = new Gson().toJson(dataVO);
         return jsonStr;
     }
     @PostMapping(value = "/translate")

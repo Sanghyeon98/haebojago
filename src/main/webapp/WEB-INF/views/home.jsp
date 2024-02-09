@@ -67,97 +67,97 @@
         </div>
     </div>
 </section>
-<%--    <div class="w-75 text-center row" style=" margin: 0 auto ">--%>
-<%--        <div class="col">--%>
-<%--        <table class="table">--%>
-<%--            <thead class="table-dark">--%>
-<%--            <tr>--%>
-<%--               <th>NO</th>--%>
-<%--               <th>단어</th>--%>
-<%--               <th>뜻</th>--%>
-<%--            </tr>--%>
-<%--            </thead>--%>
-<%--            <tbody>--%>
-<%--            <tr>--%>
-<%--                <td><input  type="checkbox" style="width: 20px; height: 20px" ></td>--%>
-<%--                <td></td>--%>
-<%--                <td></td>--%>
-<%--            </tr>--%>
-<%--            <tr>--%>
-<%--                <td><input  type="checkbox" style="width: 20px; height: 20px" ></td>--%>
-<%--                <td></td>--%>
-<%--                <td></td>--%>
-<%--            </tr>--%>
-<%--            <tr>--%>
-<%--                <td><input  type="checkbox" style="width: 20px; height: 20px" ></td>--%>
-<%--                <td></td>--%>
-<%--                <td></td>--%>
-<%--            </tr>--%>
-<%--            <tr>--%>
-<%--                <td><input  type="checkbox" style="width: 20px; height: 20px" ></td>--%>
-<%--                <td></td>--%>
-<%--                <td></td>--%>
-<%--            </tr>--%>
-<%--            <tr>--%>
-<%--                <td><input  type="checkbox" style="width: 20px; height: 20px" ></td>--%>
-<%--                <td></td>--%>
-<%--                <td></td>--%>
-<%--            </tr>--%>
-<%--            </tbody>--%>
-<%--        </table>--%>
-<%--        </div>--%>
-<%--        <div class="col">--%>
-<%--            <table class="table">--%>
-<%--                <thead class="table-dark">--%>
-<%--                <tr>--%>
-<%--                    <th>NO</th>--%>
-<%--                    <th>단어</th>--%>
-<%--                    <th>뜻</th>--%>
-<%--                </tr>--%>
-<%--                </thead>--%>
-<%--                <tbody>--%>
-<%--                <tr>--%>
-<%--                    <td><input  type="checkbox" style="width: 20px; height: 20px" ></td>--%>
-<%--                    <td></td>--%>
-<%--                    <td></td>--%>
-<%--                </tr>--%>
-<%--                <tr>--%>
-<%--                    <td><input  type="checkbox" style="width: 20px; height: 20px" ></td>--%>
-<%--                    <td></td>--%>
-<%--                    <td></td>--%>
-<%--                </tr>--%>
-<%--                <tr>--%>
-<%--                    <td><input  type="checkbox" style="width: 20px; height: 20px" ></td>--%>
-<%--                    <td></td>--%>
-<%--                    <td></td>--%>
-<%--                </tr>--%>
-<%--                <tr>--%>
-<%--                    <td><input  type="checkbox" style="width: 20px; height: 20px" ></td>--%>
-<%--                    <td></td>--%>
-<%--                    <td></td>--%>
-<%--                </tr>--%>
-<%--                <tr>--%>
-<%--                    <td><input  type="checkbox" style="width: 20px; height: 20px" ></td>--%>
-<%--                    <td></td>--%>
-<%--                    <td></td>--%>
-<%--                </tr>--%>
-<%--                </tbody>--%>
-<%--            </table>--%>
-<%--        </div>--%>
-<%--    </div>--%>
+    <div class="w-75 text-center row" style=" margin: 0 auto ">
+        <div class="col">
+        <table class="table" id="leftTable">
+            <thead class="table-dark">
+            <tr>
+               <th>NO</th>
+               <th>단어</th>
+               <th>뜻</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input  type="checkbox" style="width: 20px; height: 20px" ></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><input  type="checkbox" style="width: 20px; height: 20px" ></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><input  type="checkbox" style="width: 20px; height: 20px" ></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><input  type="checkbox" style="width: 20px; height: 20px" ></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><input  type="checkbox" style="width: 20px; height: 20px" ></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="col">
+            <table class="table" id="rightTable">
+                <thead class="table-dark">
+                <tr>
+                    <th>NO</th>
+                    <th>단어</th>
+                    <th>뜻</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><input  type="checkbox" style="width: 20px; height: 20px" ></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input  type="checkbox" style="width: 20px; height: 20px" ></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input  type="checkbox" style="width: 20px; height: 20px" ></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input  type="checkbox" style="width: 20px; height: 20px" ></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input  type="checkbox" style="width: 20px; height: 20px" ></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-<div class="w-75 text-center row" style=" margin: 0 auto ">
-    <div class="col">
-        <table id="leftTable" class="table">
-            <!-- 왼쪽 테이블의 헤더 등은 여기에 작성 -->
-        </table>
-    </div>
-    <div class="col">
-        <table id="rightTable" class="table">
-            <!-- 오른쪽 테이블의 헤더 등은 여기에 작성 -->
-        </table>
-    </div>
-</div>
+<%--<div class="w-75 text-center row" style=" margin: 0 auto ">--%>
+<%--    <div class="col">--%>
+<%--        <table id="leftTable" class="table">--%>
+<%--            <!-- 왼쪽 테이블의 헤더 등은 여기에 작성 -->--%>
+<%--        </table>--%>
+<%--    </div>--%>
+<%--    <div class="col">--%>
+<%--        <table id="rightTable" class="table">--%>
+<%--            <!-- 오른쪽 테이블의 헤더 등은 여기에 작성 -->--%>
+<%--        </table>--%>
+<%--    </div>--%>
+<%--</div>--%>
     <div class="w-75" style="margin: 0 auto">
         <nav class="" aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
@@ -192,6 +192,7 @@
             $.ajax({
                 type: 'POST',
                 url: '/getAll',
+                dataType: 'json',
                 success: function (response) {
                     console.log(response);
                     // populateTable 함수 호출
@@ -206,15 +207,20 @@
 
         function populateTable(data) {
             // 데이터가 배열인지 확인
-            if (!Array.isArray(data)) {
-                console.error('Data is not an array');
-                // 데이터가 배열이 아닌 경우 처리
+            if (!data || !Array.isArray(data.dataList) || data.dataList.length === 0) {
+                console.error('Data is not a non-empty array');
+                // 데이터가 배열이 아니거나 비어있는 경우 처리
                 return;
             }
 
+            // 왼쪽 테이블과 오른쪽 테이블 초기화
+            $('#leftTable tbody').empty();
+            $('#rightTable tbody').empty();
+
             // 배열의 각 요소를 반복하여 테이블에 추가
-            for (var index = 0; index < data.length; index++) {
-                var item = data[index];
+            var dataList = data.dataList;
+            for (var index = 0; index < dataList.length; index++) {
+                var item = dataList[index];
                 // 새로운 행 생성
                 var newRow = '<tr>' +
                     '<td><input type="checkbox" style="width: 20px; height: 20px"></td>' +
@@ -222,11 +228,11 @@
                     '<td>' + item.meaning + '</td>' +
                     '</tr>';
 
-                // 왼쪽 테이블에 추가
+                // 왼쪽 테이블에 추가 (처음 10개 항목)
                 if (index < 10) {
                     $('#leftTable tbody').append(newRow);
                 } else {
-                    // 오른쪽 테이블에 추가
+                    // 오른쪽 테이블에 추가 (나머지 항목)
                     $('#rightTable tbody').append(newRow);
                 }
             }
@@ -289,6 +295,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '/add',
+                    dataType: 'json',
                     data: {
                         word: word,
                         wordType: sourceLanguage,
