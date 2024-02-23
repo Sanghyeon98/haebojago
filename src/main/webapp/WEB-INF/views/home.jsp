@@ -131,6 +131,7 @@
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.12/dist/xlsx.full.min.js"></script>
 <script>
     let page=1;
     let amount=10;
@@ -471,6 +472,37 @@
                 });
             }
         });
+
+        // 이 오류는 서버로부터 받은 응답(response)의 형식이 Blob인데, jQuery AJAX 요청에서 기본적으로는 텍스트 형식으로 응답을 처리하려고 시도하기 때문에 발생합니다.
+        //
+        //     해결하기 위해서는 AJAX 요청의 responseType을 Blob으로 설정해야 합니다. 그러나 jQuery의 AJAX 함수에서는 이러한 설정을 직접 지원하지 않습니다.
+        //     따라서 네이티브 JavaScript의 XMLHttpRequest 객체를 사용하여 직접 AJAX 요청을 처리해야 합니다.
+        //
+        //     아래는 jQuery 대신에 네이티브 JavaScript를 사용하여 AJAX 요청을 보내는 코드입니다.
+
+        $('#ExcelFile').click(function() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/downloadExcel', true);
+            xhr.responseType = 'blob';
+
+            xhr.onload = function(event) {
+                var blob = xhr.response;
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = 'word_list.xlsx';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            };
+
+            xhr.onerror = function(event) {
+                console.error('Failed to download Excel file:', xhr.statusText);
+                alert('Failed to download Excel file. Please try again later.');
+            };
+
+            xhr.send();
+        });
+
 
     });
 
