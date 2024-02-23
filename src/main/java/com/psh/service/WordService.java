@@ -1,11 +1,13 @@
 package com.psh.service;
 
 import com.psh.domain.dao.WordDAO;
+import com.psh.domain.vo.Criteria;
 import com.psh.domain.vo.WordVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.beans.Transient;
 import java.util.List;
 
 @Service
@@ -37,8 +39,8 @@ public class WordService {
     }
 
     //삭제
-    public int delete(Long worldId){
-        int result= wordDAO.delete(worldId);
+    public int delete(Long wordId){
+        int result= wordDAO.delete(wordId);
         // 10 성공
         if(result >0){
             return 10;
@@ -47,9 +49,28 @@ public class WordService {
         }
     }
 
-    //리스트 가져오기
-    public List<WordVO> findAll(Long seq){
-
-        return wordDAO.findAll(seq);
+    @Transient
+    public int deleteAll(List<Long> wordIdlist){
+        for(Long wordId : wordIdlist){
+            int result= wordDAO.delete(wordId);
+            if(result ==0){
+                // 20 실패
+                return 20;
+            }
+        }
+        return 10;
     }
+
+
+    //리스트 가져오기
+    public List<WordVO> findAll(Long seq, Criteria criteria){
+
+        return wordDAO.findAll(seq, criteria);
+    }
+
+    public long selectCountAll(Long memberSeq){
+        return wordDAO.selectCountAll(memberSeq);
+    };
+
+
 }

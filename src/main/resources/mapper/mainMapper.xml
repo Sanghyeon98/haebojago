@@ -2,11 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.psh.mapper.MainMapper">
 
-    <select id="getList" resultType="WordVO">
+    <select id="getList" parameterType="map" resultType="WordVO">
         SELECT word_id, word, meaning, sentence, reg_time, update_time, member_seq
         FROM words
         where member_seq=#{memberSeq}
         order by word_id desc
+        limit #{cri.offset} , #{cri.amount}
     </select>
     
     <insert id="insert" parameterType="WordVO">
@@ -23,8 +24,17 @@
         DELETE FROM words WHERE word_id=#{wordId}
     </delete>
 
-    <select id="selectCountAll" resultType="int">
+    <select id="selectCountAll"  resultType="int">
         select COUNT(*) from words where member_seq=#{memberSeq}
     </select>
+
+    <select id="getListPaging" resultType="WordVO">
+        SELECT word_id, word, meaning, sentence, reg_time, update_time, member_seq
+        FROM words
+        where member_seq=#{memberSeq}
+        order by word_id desc
+        limit #{cri.offset} , #{cri.amount}
+    </select>
+
 
 </mapper>

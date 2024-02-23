@@ -1,8 +1,10 @@
 package com.psh.mapper;
 
+import com.psh.domain.vo.Criteria;
 import com.psh.domain.vo.MemberVO;
 import com.psh.domain.vo.WordVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,7 +21,7 @@ public interface MainMapper {
     public int delete(Long worldId);
 
     //리스트 가져오기
-    public List<WordVO> getList(Long seq);
+    public List<WordVO> getList(@Param("memberSeq") Long seq, @Param("cri") Criteria criteria);
 
-    public int selectCountAll(WordVO wordVO);
+    public int selectCountAll(Long memberSeq);
 }

@@ -10,5 +10,6 @@ import java.util.List;
 public class DataVO {
    private String msgId;
    private String contents;
+   private Long total;
    private List dataList;
 }

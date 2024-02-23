@@ -53,6 +53,9 @@
                     console.log(response);
                     // 예시: 메시지 표시
                     alert(response.contents);
+                    if (response.msgId === "30") {
+                        sessionStorage.setItem("user", JSON.stringify(response)); // 사용자 정보를 JSON 형식으로 변환하여 저장
+                    }
                     // 예시: 리다이렉트
                     if (response.msgId === '30') {
                         window.location.href = '/';

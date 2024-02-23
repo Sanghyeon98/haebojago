@@ -1,38 +1,56 @@
 package com.psh.controller;
 
 import com.google.gson.Gson;
-import com.psh.domain.vo.DataVO;
-import com.psh.domain.vo.MemberVO;
-import com.psh.domain.vo.WordVO;
+import com.psh.domain.vo.*;
 import com.psh.service.PapagoService;
 import com.psh.service.WordService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class HomeController {
     private final WordService wordService;
     private final PapagoService papagoService;
-    @RequestMapping(value = "/")
-    public String home(String userId, Model model, HttpSession session){
-        System.out.println("test");
+    @GetMapping(value = "/")
+    public String home(String userId, Model model, HttpSession session, Criteria criteria){
+//        System.out.println("test");
+//        List<WordVO> list;
+//
+//        DataVO dataVO = new DataVO();
+//        // 세션에서 userId 가져오기
+//        MemberVO user = (MemberVO) session.getAttribute("user");
+//        System.out.println(user);
+//
+//        // 세션에 사용자 정보가 없는 경우 빈 리스트로 초기화
+//        if (user == null) {
+//            list = Collections.emptyList();
+//            System.out.println(list);
+//        } else {
+//            Long userseq = user.getSeq();
+//            list = wordService.findAll(userseq,criteria );
+//            model.addAttribute("pageDTO",new PageDTO(criteria, wordService.selectCountAll(user.getSeq())));
+//        }
+//        log.info("!!!!!!!!!!!!!!!!!!!!"+list.toString());
+//
+//
+//        model.addAttribute("list",list);
+
 
         return "home";
     }
 
     @PostMapping(value = "/getAll")
     @ResponseBody
-    public String getAll(HttpSession session){
+    public String getAll(HttpSession session, Criteria criteria){
         String jsonStr="";
         List<WordVO> list;
 
@@ -47,7 +65,7 @@ public class HomeController {
             System.out.println(list);
         } else {
             Long userseq = user.getSeq();
-            list = wordService.findAll(userseq);
+            list = wordService.findAll(userseq, criteria);
         }
 
         dataVO.setDataList(list);
@@ -89,7 +107,6 @@ public class HomeController {
             String jsonStr=new Gson().toJson(wordVO);
             return jsonStr;
         }
-
 
     }
 }

@@ -1,5 +1,6 @@
 package com.psh.domain.dao;
 
+import com.psh.domain.vo.Criteria;
 import com.psh.domain.vo.MemberVO;
 import com.psh.domain.vo.WordVO;
 import com.psh.mapper.MainMapper;
@@ -29,7 +30,10 @@ public class WordDAO {
     }
 
     //리스트 가져오기
-    public List<WordVO> findAll(Long seq){
-     return mainmapper.getList(seq);
+    public List<WordVO> findAll(Long seq, Criteria criteria){
+     return mainmapper.getList(seq, criteria);
+    }
+    public int selectCountAll(Long memberseq){
+       return mainmapper.selectCountAll(memberseq);
     }
 }

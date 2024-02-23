@@ -8,7 +8,7 @@
             <div class="p-2 flex-grow-1">
                 <a href="/" class="d-flex align-items-center mb-9 mb-lg-0 text-white text-decoration-none">
                     <img src="images/logo-haebojago.png" alt="logo" width="100px" height="100px">
-                    <h1>HAEBOJAGO</h1>
+                    <h1>Linked-By-Word</h1>
                 </a>
             </div>
 
@@ -36,6 +36,9 @@
                 success: function(response) { // 요청이 성공할 경우 실행될 콜백 함수
                     // 서버로부터 받은 응답을 확인하여 필요한 동작 수행
                     console.log(response); // 응답을 콘솔에 출력 (예시)
+                    // sessionStorage에서 사용자 정보 삭제
+                    sessionStorage.removeItem("user");
+
                     // 여기에 로그아웃 성공 후의 동작 추가 (예시: 페이지 새로고침 등)
                     window.location.reload(); // 페이지 새로고침
                 },
