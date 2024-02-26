@@ -33,7 +33,7 @@ public class WordDAO {
     public List<WordVO> findAll(Long seq, Criteria criteria){
      return mainmapper.getList(seq, criteria);
     }
-    public int selectCountAll(Long memberseq){
-       return mainmapper.selectCountAll(memberseq);
+    public int selectCountAll(Long memberseq ,Criteria criteria){
+       return mainmapper.selectCountAll(memberseq,criteria);
     }
 }

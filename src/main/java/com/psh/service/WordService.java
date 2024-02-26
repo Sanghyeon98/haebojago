@@ -68,8 +68,8 @@ public class WordService {
         return wordDAO.findAll(seq, criteria);
     }
 
-    public long selectCountAll(Long memberSeq){
-        return wordDAO.selectCountAll(memberSeq);
+    public long selectCountAll(Long memberSeq,Criteria criteria){
+        return wordDAO.selectCountAll(memberSeq,criteria);
     };
 
 

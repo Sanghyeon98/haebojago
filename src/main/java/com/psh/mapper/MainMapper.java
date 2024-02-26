@@ -23,5 +23,5 @@ public interface MainMapper {
     //리스트 가져오기
     public List<WordVO> getList(@Param("memberSeq") Long seq, @Param("cri") Criteria criteria);
 
-    public int selectCountAll(Long memberSeq);
+    public int selectCountAll(@Param("memberSeq") Long seq, @Param("cri") Criteria criteria);
 }

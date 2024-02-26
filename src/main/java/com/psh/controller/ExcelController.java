@@ -11,19 +11,25 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class ExcelController  {
-    @GetMapping("/downloadExcel")
-    public ResponseEntity<byte[]> downloadExcel() {
+    @PostMapping("/downloadExcel")
+    public ResponseEntity<byte[]> downloadExcel(@RequestBody Map<String, List<Map<String, String>>> requestData) {
+        List<Map<String, String>> wordList = requestData.get("wordList");
+
         try {
             // 엑셀 워크북 생성
             Workbook workbook = new XSSFWorkbook();
-            Sheet sheet = workbook.createSheet("Word List");
+            Sheet sheet = workbook.createSheet("나만의 단어장1");
 
             // 엑셀에 헤더 추가
             Row headerRow = sheet.createRow(0);
@@ -33,17 +39,24 @@ public class ExcelController  {
                 cell.setCellValue(headers[i]);
             }
 
-            // 엑셀에 데이터 추가
-            String[][] data = {
-                    {"Apple", "사과"},
-                    {"Banana", "바나나"},
-                    {"Orange", "오렌지"}
-            };
-            for (int i = 0; i < data.length; i++) {
-                Row row = sheet.createRow(i + 1);
-                for (int j = 0; j < data[i].length; j++) {
-                    row.createCell(j).setCellValue(data[i][j]);
-                }
+//            // 엑셀에 데이터 추가
+//            String[][] data = {
+//                    {"Apple", "사과"},
+//                    {"Banana", "바나나"},
+//                    {"Orange", "오렌지"}
+//            };
+
+//            for (int i = 0; i < data.length; i++) {
+//                Row row = sheet.createRow(i + 1);
+//                for (int j = 0; j < data[i].length; j++) {
+//                    row.createCell(j).setCellValue(data[i][j]);
+//                }
+//            }
+            int rowNum = 1;
+            for (Map<String, String> wordItem : wordList) {
+                Row row = sheet.createRow(rowNum++);
+                row.createCell(0).setCellValue(wordItem.get("word"));
+                row.createCell(1).setCellValue(wordItem.get("meaning"));
             }
 
             // 엑셀 파일을 ByteArrayOutputStream에 쓰기

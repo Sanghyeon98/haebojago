@@ -69,16 +69,24 @@
             <div class="optionBar"><a id="deleteAll" href="#" class="ml-5" style="color: black; text-decoration-line: none; font-weight: bold;">선택 삭제</a></div>
         </div>
         <div class="col d-flex align-items-center optionBar">
-            <select class="form-select optionBar" aria-label="Default select example" name="amount" style="margin-right: 10px; width: 50%" >
-                <option value="10" selected>단어의 갯수</option>
+            <select class="form-select optionBar" aria-label="Default select example" name="amount" style="margin-right: 10px; width: 30%" >
+                <option value="10" selected>단어의 수</option>
                 <option value="10">10</option>
                 <option value="20">20</option>
                 <option value="40">40</option>
                 <option value="50">50</option>
+                <option value="100">100</option>
             </select>
-            <div class="input-group optionBar">
-                <input type="text" class="form-control">
-                <button class="btn btn-warning" style="background-color: #FEE500; font-weight: bold;">검색</button>
+            <select class="form-select" aria-label="Default select example" name="type" style="  width: 35%">
+                <option value="" selected>단어의 타입</option>
+                <option value="ko">한국어</option>
+                <option value="en">영어</option>
+                <option value="jp">일본어</option>
+                <option value="ch">중국어</option>
+            </select>
+            <div class="input-group optionBar" style="width: 60%">
+                <input type="text" class="form-control" id="search-input">
+                <button id="searchWord" class="btn btn-warning" style="background-color: #FEE500; font-weight: bold;">검색</button>
             </div>
         </div>
     </div>
@@ -173,11 +181,23 @@
             // 왼쪽 테이블과 오른쪽 테이블 초기화
             $('#leftTable tbody').empty();
             $('#rightTable tbody').empty();
+            wordList=[];
 
             // 서버로부터 받은 데이터
             let dataList = response.dataList;
 
+
             if (dataList && dataList.length > 0) {
+
+                dataList.forEach(function(item) {
+                    let wordItem = {
+                        word: item.word,
+                        meaning: item.meaning
+                    };
+                    wordList.push(wordItem);
+                });
+
+                console.log(wordList);
                 $.each(dataList, function(index, item) {
                     let newRow = '<tr>' +
                         '<td><input type="checkbox" style="width: 20px; height: 20px" value="' + item.wordId + '"></td>' +
@@ -256,7 +276,34 @@
             let pageNum = $(this).attr("href");
             if (page != pageNum) {
                 page = parseInt(pageNum);
-                getList();
+
+                let keyword = $('#search-input').val(); // 입력된 단어
+                let type = $('select[name="type"]').val(); // 선택된 타입
+
+                let url = '/getAll/' + page + '/' + amount;
+
+                // 검색어와 타입이 있는 경우 URL에 추가
+                if (keyword || type) {
+                    url += '?type=' + type + '&keyword=' + keyword;
+                }
+
+                // AJAX 요청 보내기
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function(response) {
+                        // 서버로부터 받은 데이터를 이용하여 화면에 출력하거나 다른 작업 수행
+                        console.log(response);
+                        // 검색 결과를 화면에 표시하는 함수 호출
+                        populateTable(response);
+                        // 검색 결과에 맞는 페이지네이션 생성
+                        createPagination(response.total);
+                    },
+                    error: function(xhr, status, error) {
+                        // 요청이 실패한 경우 처리
+                        console.error('Failed to get list:', error);
+                    }
+                });
             } else {
                 // 현재 페이지와 클릭한 페이지가 같으면 아무 동작도 하지 않음
                 return false;
@@ -473,6 +520,37 @@
             }
         });
 
+        $('#searchWord').click(function() {
+            // 입력된 단어와 선택된 타입 가져오기
+            let keyword = $('#search-input').val(); // 입력된 단어
+            let type = $('select[name="type"]').val(); // 선택된 타입
+
+            let url = '/getAll/' + page + '/' + amount;
+
+            // 검색어와 타입이 있는 경우 URL에 추가
+            if (keyword || type) {
+                url += '?type=' + type + '&keyword=' + keyword;
+            }
+
+            // AJAX 요청 보내기
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function(response) {
+                    // 서버로부터 받은 데이터를 이용하여 화면에 출력하거나 다른 작업 수행
+                    console.log(response);
+                    // 검색 결과를 화면에 표시하는 함수 호출
+                    populateTable(response);
+                    // 검색 결과에 맞는 페이지네이션 생성
+                    createPagination(response.total);
+                },
+                error: function(xhr, status, error) {
+                    // 요청이 실패한 경우 처리
+                    console.error('Failed to search words:', error);
+                }
+            });
+        });
+
         // 이 오류는 서버로부터 받은 응답(response)의 형식이 Blob인데, jQuery AJAX 요청에서 기본적으로는 텍스트 형식으로 응답을 처리하려고 시도하기 때문에 발생합니다.
         //
         //     해결하기 위해서는 AJAX 요청의 responseType을 Blob으로 설정해야 합니다. 그러나 jQuery의 AJAX 함수에서는 이러한 설정을 직접 지원하지 않습니다.
@@ -481,27 +559,88 @@
         //     아래는 jQuery 대신에 네이티브 JavaScript를 사용하여 AJAX 요청을 보내는 코드입니다.
 
         $('#ExcelFile').click(function() {
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', '/downloadExcel', true);
-            xhr.responseType = 'blob';
 
-            xhr.onload = function(event) {
-                var blob = xhr.response;
-                var link = document.createElement('a');
-                link.href = window.URL.createObjectURL(blob);
-                link.download = 'word_list.xlsx';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+
+            let requestData = {
+                wordList: wordList
             };
 
-            xhr.onerror = function(event) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/downloadExcel', true); // POST 요청으로 변경
+            xhr.setRequestHeader('Content-Type', 'application/json'); // 요청 헤더에 Content-Type을 JSON으로 설정
+            xhr.responseType = 'blob'; // 응답 형식을 Blob으로 설정
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // 응답이 성공한 경우
+                    var blob = xhr.response;
+                    var url = window.URL.createObjectURL(blob);
+                    var a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'word_list.xlsx';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                } else {
+                    // 요청이 실패한 경우
+                    console.error('Failed to download Excel file:', xhr.statusText);
+                    alert('Failed to download Excel file. Please try again later.');
+                }
+            };
+
+            xhr.onerror = function() {
+                // 요청이 실패한 경우
                 console.error('Failed to download Excel file:', xhr.statusText);
                 alert('Failed to download Excel file. Please try again later.');
             };
 
-            xhr.send();
+            // JSON.stringify() 함수를 사용하여 요청 데이터를 JSON 형식으로 변환하여 전송
+            xhr.send(JSON.stringify(requestData));
         });
+
+
+
+        $('#wordFile').click(function() {
+            console.log("wordFile 생성중");
+            let requestData = {
+                wordList: wordList
+            };
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', '/downloadWord', true); // POST 요청으로 변경
+            xhr.setRequestHeader('Content-Type', 'application/json'); // 요청 헤더에 Content-Type을 JSON으로 설정
+            xhr.responseType = 'blob'; // 응답 형식을 Blob으로 설정
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // 응답이 성공한 경우
+                    let blob = xhr.response;
+                    let url = window.URL.createObjectURL(blob);
+                    let a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'word_list.docx';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                } else {
+                    // 요청이 실패한 경우
+                    console.error('Failed to download Word file:', xhr.statusText);
+                    alert('Failed to download Word file. Please try again later.');
+                }
+            };
+
+            xhr.onerror = function() {
+                // 요청이 실패한 경우
+                console.error('Failed to download Word file:', xhr.statusText);
+                alert('Failed to download Word file. Please try again later.');
+            };
+
+            // JSON.stringify() 함수를 사용하여 요청 데이터를 JSON 형식으로 변환하여 전송
+            xhr.send(JSON.stringify(requestData));
+        });
+
 
 
     });
