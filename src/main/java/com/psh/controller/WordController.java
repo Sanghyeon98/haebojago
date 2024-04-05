@@ -19,7 +19,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WordController {
     private final WordService wordService;
-    private final PapagoService papagoService;
 
     @GetMapping(value = "/getAll/{page}/{amount}")
     @ResponseBody

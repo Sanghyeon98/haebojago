@@ -8,7 +8,7 @@
             <div class="p-2 flex-grow-1">
                 <a href="/" class="d-flex align-items-center mb-9 mb-lg-0 text-white text-decoration-none">
                     <img src="images/logo-haebojago.png" alt="logo" width="100px" height="100px">
-                    <h1>HaeBoJaGO</h1>
+                    <h1>Linked-By-Word</h1>
                 </a>
             </div>
 

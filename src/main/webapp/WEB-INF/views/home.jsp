@@ -20,7 +20,7 @@
             cursor: pointer; /* 호버 시 커서 모양 변경 */
         }
     </style>
-    <title>LinkedByWord</title>
+    <title>HaeBojaGO</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <!-- 사용자 정의 CSS 파일 또는 스타일 태그 -->
@@ -52,7 +52,7 @@
                 <option value="jp">일본어</option>
                 <option value="ch">중국어</option>
             </select></div>
-            <div style="width: auto" class="mt-2 w-auto"><input id="inputTranslated" class="w-100" type="text" style="height: 300px"  ></div>
+            <div style="width: auto" class="mt-2 w-auto"><input id="inputTranslated" class="w-100" type="text" style="height: 300px" readonly  ></div>
             <div class="mt-2 w-auto d-flex flex-row-reverse"><input id="LoginAdd" type="button" class="btn btn-warning w-50" style="background-color: #FEE500;font-weight: bold " value="단어장에 추가"></div>
             <div class="mt-2 w-auto d-flex flex-row-reverse"><input id="noLoginAdd" type="button" class="btn btn-warning w-50" style="background-color: #fea900;font-weight: bold " value="단어장에 추가"></div>
         </form>
@@ -77,7 +77,7 @@
                 <option value="50">50</option>
                 <option value="100">100</option>
             </select>
-            <select class="form-select" aria-label="Default select example" name="type" style="  width: 35%">
+            <select class="form-select optionBar" aria-label="Default select example" name="type" style="  width: 35%">
                 <option value="" selected>단어의 타입</option>
                 <option value="ko">한국어</option>
                 <option value="en">영어</option>
@@ -152,7 +152,7 @@
             let selectedValue = $(this).val();
             // amount 변수를 선택된 값으로 업데이트합니다.
             amount = parseInt(selectedValue);
-            console.log(amount);
+            // console.log(amount);
             page =1;
             getList(page,amount);
         });
@@ -165,7 +165,7 @@
                 url: '/getAll/'+page+'/'+amount,
                 dataType: 'json',
                 success: function(response) {
-                    console.log(response);
+                    // console.log(response);
                     // populateTable 함수 호출
                     populateTable(response);
                     createPagination(response.total);
@@ -197,7 +197,7 @@
                     wordList.push(wordItem);
                 });
 
-                console.log(wordList);
+                // console.log(wordList);
                 $.each(dataList, function(index, item) {
                     let newRow = '<tr>' +
                         '<td><input type="checkbox" style="width: 20px; height: 20px" value="' + item.wordId + '"></td>' +
@@ -293,7 +293,7 @@
                     url: url,
                     success: function(response) {
                         // 서버로부터 받은 데이터를 이용하여 화면에 출력하거나 다른 작업 수행
-                        console.log(response);
+                        // console.log(response);
                         // 검색 결과를 화면에 표시하는 함수 호출
                         populateTable(response);
                         // 검색 결과에 맞는 페이지네이션 생성
@@ -311,7 +311,7 @@
         });
         // 세션 정보 확인
         let user = sessionStorage.getItem("user");
-        console.log(user);
+        // console.log(user);
         if (user) {
             // 유저 정보가 있는 경우
             $("#LoginAdd").show(); // add 버튼 표시
@@ -346,7 +346,7 @@
                     // 서버로부터 받은 JSON 데이터 콘솔에 출력
                     const jsonObj = JSON.parse(response);
                     let translatedText = jsonObj.message.result.translatedText;
-                    console.log('Translated text:', translatedText);
+                    // console.log('Translated text:', translatedText);
                     $('#inputTranslated').val(translatedText);
                 },
                 error: function(xhr, status, error) {
@@ -366,7 +366,7 @@
             }
 
             let word = $('input[type="text"]').val();
-            console.log(word);
+            // console.log(word);
 
             let meaning = $('#inputTranslated').val();
 
@@ -390,7 +390,7 @@
                 alert("단어를 추가하려면 로그인이 필요합니다.");
             }
 
-            console.log(wordList);
+            // console.log(wordList);
             updateTable();
         });
 
@@ -439,7 +439,7 @@
             let targetLanguage = $('select[name="target"]').val();//meaningType
             let inputTranslated = $('#inputTranslated').val();//meaning
 
-            if (inputTranslated.trim() === '') {
+            if (inputTranslated.trim() === '' && word.trim() ===``) {
                 alert("번역된 값이 없습니다.")
                 return; // 값이 비어있으면 요청을 보내지 않고 함수 종료
             }
@@ -456,7 +456,7 @@
                         meaningType: targetLanguage,
                     },
                     success: function (response) {
-                        console.log(response);
+                        // console.log(response);
                         page=1;
                         getList(page,amount);
                     },
@@ -538,7 +538,7 @@
                 url: url,
                 success: function(response) {
                     // 서버로부터 받은 데이터를 이용하여 화면에 출력하거나 다른 작업 수행
-                    console.log(response);
+                    // console.log(response);
                     // 검색 결과를 화면에 표시하는 함수 호출
                     populateTable(response);
                     // 검색 결과에 맞는 페이지네이션 생성
@@ -602,7 +602,7 @@
 
 
         $('#wordFile').click(function() {
-            console.log("wordFile 생성중");
+            // console.log("wordFile 생성중");
             let requestData = {
                 wordList: wordList
             };

@@ -2,6 +2,7 @@ package com.psh.controller;
 
 import com.google.gson.Gson;
 import com.psh.domain.vo.*;
+import com.psh.service.GoogleTranslationService;
 import com.psh.service.PapagoService;
 import com.psh.service.WordService;
 import jakarta.servlet.http.HttpSession;
@@ -20,6 +21,7 @@ import java.util.List;
 public class HomeController {
     private final WordService wordService;
     private final PapagoService papagoService;
+    private final GoogleTranslationService googleTranslationService;
     @GetMapping(value = "/")
     public String home(String userId, Model model, HttpSession session, Criteria criteria){
 //        System.out.println("test");
@@ -76,8 +78,9 @@ public class HomeController {
     @PostMapping(value = "/translate")
     @ResponseBody
     public String translate(@RequestParam String s, @RequestParam String source, @RequestParam String target){
-        return papagoService.getTransSentence(s,source,target);
+        return googleTranslationService.TranslateService(s,source,target);
     }
+
     @PostMapping(value = "/add")
     @ResponseBody
     public String add(WordVO wordVO,HttpSession httpSession){
