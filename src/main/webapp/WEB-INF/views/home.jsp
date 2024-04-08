@@ -33,11 +33,11 @@
     <div class="w-50 p-3">
         <form >
             <div><select class="form-select" aria-label="Default select example" name="source">
-                <option value="en" selected>입력할 언어- 기본 영어</option>
-                <option value="ko">한국어</option>
-                <option value="en">영어</option>
-                <option value="jp">일본어</option>
-                <option value="ch">중국어</option>
+                <option value="EN" selected>입력할 언어- 기본 영어</option>
+                <option value="KO">한국어</option>
+                <option value="EN">영어</option>
+                <option value="JA">일본어</option>
+                <option value="ZH">중국어</option>
             </select></div>
             <div style="width: auto" class="mt-2 w-auto"><input class="w-100" type="text" style="height: 300px"  placeholder="단어를 입력해주세요"></div>
             <div class="mt-2 w-auto d-flex flex-row-reverse"><input id="tarnslate" type="button" class="btn btn-warning w-50" style="background-color: #FEE500;font-weight: bold" value="번역 하기"></div>
@@ -46,11 +46,11 @@
     <div class="w-50 p-3">
         <form >
             <div><select class="form-select" aria-label="Default select example" name="target">
-                <option value="ko" selected>번역할 언어- 기본 한국어</option>
-                <option value="ko">한국어</option>
-                <option value="en">영어</option>
-                <option value="jp">일본어</option>
-                <option value="ch">중국어</option>
+                <option value="KO" selected>번역할 언어- 기본 한국어</option>
+                <option value="KO">한국어</option>
+                <option value="EN-US">영어</option>
+                <option value="JA">일본어</option>
+                <option value="ZH">중국어</option>
             </select></div>
             <div style="width: auto" class="mt-2 w-auto"><input id="inputTranslated" class="w-100" type="text" style="height: 300px" readonly  ></div>
             <div class="mt-2 w-auto d-flex flex-row-reverse"><input id="LoginAdd" type="button" class="btn btn-warning w-50" style="background-color: #FEE500;font-weight: bold " value="단어장에 추가"></div>
@@ -79,10 +79,10 @@
             </select>
             <select class="form-select optionBar" aria-label="Default select example" name="type" style="  width: 35%">
                 <option value="" selected>단어의 타입</option>
-                <option value="ko">한국어</option>
-                <option value="en">영어</option>
-                <option value="jp">일본어</option>
-                <option value="ch">중국어</option>
+                <option value="KO">한국어</option>
+                <option value="EN-US">영어</option>
+                <option value="JA">일본어</option>
+                <option value="CS">중국어</option>
             </select>
             <div class="input-group optionBar" style="width: 60%">
                 <input type="text" class="form-control" id="search-input">
@@ -343,9 +343,10 @@
                     target: targetLanguage
                 },
                 success: function(response) {
+                    console.log(response);
                     // 서버로부터 받은 JSON 데이터 콘솔에 출력
                     const jsonObj = JSON.parse(response);
-                    let translatedText = jsonObj.message.result.translatedText;
+                    let translatedText = jsonObj.contents;
                     // console.log('Translated text:', translatedText);
                     $('#inputTranslated').val(translatedText);
                 },

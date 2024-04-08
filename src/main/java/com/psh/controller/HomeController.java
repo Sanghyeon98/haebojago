@@ -2,6 +2,7 @@ package com.psh.controller;
 
 import com.google.gson.Gson;
 import com.psh.domain.vo.*;
+import com.psh.service.DeeplService;
 import com.psh.service.GoogleTranslationService;
 import com.psh.service.PapagoService;
 import com.psh.service.WordService;
@@ -22,6 +23,7 @@ public class HomeController {
     private final WordService wordService;
     private final PapagoService papagoService;
     private final GoogleTranslationService googleTranslationService;
+    private final DeeplService deeplService;
     @GetMapping(value = "/")
     public String home(String userId, Model model, HttpSession session, Criteria criteria){
 //        System.out.println("test");
@@ -77,8 +79,13 @@ public class HomeController {
     }
     @PostMapping(value = "/translate")
     @ResponseBody
-    public String translate(@RequestParam String s, @RequestParam String source, @RequestParam String target){
-        return googleTranslationService.TranslateService(s,source,target);
+    public String translate(@RequestParam String s, @RequestParam String source, @RequestParam String target) throws Exception {
+        DataVO dataVO= new DataVO();
+
+        dataVO.setContents( deeplService.TranslateService(s,source,target));
+        String jsonStr =new Gson().toJson(dataVO);
+
+        return jsonStr;
     }
 
     @PostMapping(value = "/add")
