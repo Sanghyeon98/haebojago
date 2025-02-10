@@ -1,5 +1,5 @@
 drop table words ;
-drop table member; 
+drop table member;
 
 create table member(
 seq INT not null auto_increment primary KEY,
@@ -7,8 +7,8 @@ id VARCHAR(40) not null unique,
 pwd VARCHAR(40) not null,
 name VARCHAR(40) not null,
 email VARCHAR(50) not null,
-reg_time date DEFAULT CURRENT_TIMESTAMP,
-update_time date DEFAULT CURRENT_TIMESTAMP
+reg_time DATETIME  DEFAULT CURRENT_TIMESTAMP,
+update_time DATETIME  DEFAULT CURRENT_TIMESTAMP
 );
 
 create table words(
@@ -18,8 +18,8 @@ word_type varchar(20) not null,
 meaning VARCHAR(100) not null,
 meaning_type varchar(20) not null,
 sentence  VARCHAR(3000),
-reg_time date DEFAULT CURRENT_TIMESTAMP,
-update_time date DEFAULT CURRENT_TIMESTAMP,
+reg_time DATETIME  DEFAULT CURRENT_TIMESTAMP,
+update_time DATETIME  DEFAULT CURRENT_TIMESTAMP,
 member_seq INT,
 FOREIGN KEY (member_seq) REFERENCES member(seq)
 );
