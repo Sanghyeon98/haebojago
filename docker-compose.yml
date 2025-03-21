@@ -1,0 +1,43 @@
+version: '3.8'
+networks:
+  code-network:
+    driver: bridge
+
+services:
+  haebojago_db:
+    image: mariadb:latest
+    container_name: haebojago_db
+    environment:
+      MYSQL_DATABASE: haebojago
+      MYSQL_ROOT_PASSWORD: 1234  # MySQL 루트 패스워드 설정
+    ports:
+      - "3388:3306"  #  호스트의 3308 포트를 컨테이너의 3306 포트에 매핑
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # 상대 경로로 init.sql을 설정
+    networks:
+        - code-network
+    healthcheck:
+      test: ["CMD", "mariadb", "-h", "localhost", "-u", "root", "-p1234", "-e", "SELECT 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  haebojago_app:
+    build:
+      context: .  # 현재 디렉토리에서 빌드
+      dockerfile: ./Dockerfile
+    container_name: haebojago_app
+    depends_on:
+      haebojago_db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://haebojago_db:3306/haebojago?characterEncoding=UTF-8&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 1234
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.mariadb.jdbc.Driver
+    ports:
+      - "8080:8080"
+    networks:
+        - code-network
+
+
